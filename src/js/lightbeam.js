@@ -3,12 +3,12 @@ const lightbeam = {
   dataGatheredSince: null,
   numFirstParties: 0,
   numThirdParties: 0,
-  view: 'venn',
 
   async init() {
+    // this.view = 'matrix';
     this.websites = await storeChild.getAll();
     this.initTPToggle();
-    this.renderGraph('venn');
+    this.renderGraph('matrix');
     this.addListeners();
     this.updateVars();
     
@@ -42,16 +42,24 @@ const lightbeam = {
     }
   },
 
-  renderGraph(view) {
-    this.view = view;
-    const transformedData = this.transformData();
+  renderGraph(newView) {
     if (this.view == 'graph') {
-      vennCode.remove();
-      viz.init(transformedData.nodes, transformedData.links);
-    } else if (this.view == 'venn') {
       viz.remove();
-      vennCode.init(transformedData.nodes, transformedData.links);
+    } else if (this.view == 'venn') {
+      vennCode.remove();
+    } else if (this.view == 'matrix') {
+      matrix.remove();
     }
+    
+    const transformedData = this.transformData();
+    if (newView == 'graph') {
+      viz.init(transformedData.nodes, transformedData.links);
+    } else if (newView == 'venn') {
+      vennCode.init(transformedData.nodes, transformedData.links);
+    } else if (newView == 'matrix') {
+      matrix.init(transformedData.nodes, transformedData.links);
+    }
+    this.view = newView;
     
   },
 
@@ -60,6 +68,7 @@ const lightbeam = {
     this.resetData();
     this.viewGraph();
     this.viewVenn();
+    this.viewMatrix();
     storeChild.onUpdate((data) => {
       this.redraw(data);
     });
@@ -262,6 +271,13 @@ const lightbeam = {
     });
   },
 
+  viewMatrix() {
+    const viewMatrix = document.getElementById('matrix-button');
+    viewMatrix.addEventListener('click', async() => {
+      this.renderGraph('matrix');
+    });
+  },
+
   downloadData() {
     const saveData = document.getElementById('save-data-button');
     saveData.addEventListener('click', async () => {
@@ -323,11 +339,14 @@ const lightbeam = {
         }
       });
     }
-    const transformedData = this.transformData(this.websites);
+    // const transformedData = this.transformData(this.websites);
+    const transformedData = this.transformData();
     if (this.view == 'graph') {
       viz.draw(transformedData.nodes, transformedData.links);
     } else if (this.view == 'venn') {
       vennCode.draw(transformedData.nodes, transformedData.links);
+    } else if (this.view == 'matrix') {
+      matrix.draw(transformedData.nodes, transformedData.links);
     }
   }
 };

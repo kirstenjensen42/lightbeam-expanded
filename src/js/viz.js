@@ -14,6 +14,8 @@ const viz = {
   alphaTargetStop: 0,
 
   init(nodes, links) {
+
+
     const { width, height } = this.getDimensions();
     const { canvas, context } = this.createCanvas();
 
@@ -467,6 +469,16 @@ const viz = {
   },
 
   remove() {
+    this.simulation.stop();
+    this.simulation == null;
+    this.canvas = null;
+    this.context = null;
+    this.tooltip = null;
+    this.circleRadius = 5;
+    this.collisionRadius = 10;
+    this.scale = null;
+    this.transform = null;
+    this.defaultIcon = null;
     d3.select("#visualization").select("canvas").remove();
 }
 

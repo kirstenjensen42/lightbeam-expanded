@@ -6,18 +6,19 @@ const vennCode = {
 
         this.links = links;
         this.nodes = nodes;
+        if (nodes.length == 0) {
+            console.log("Nothing to report");
+            return;
+        }
 
         var tempListAsStringToList = new Map([]);
         var tempListAsStringToCount = new Map([]);
-        var tempStringToListOfTargets = new Map([]);
-
 
         for (const node of nodes) {
             if (node.firstParty) {
             var hostname = node.hostname.replace('www.','').replace('.com','').replace('.org','');
             tempListAsStringToList.set(hostname, [hostname]);
             tempListAsStringToCount.set(hostname, 2);
-            tempStringToListOfTargets.set(hostname, []);
             }
         }
 
@@ -25,8 +26,6 @@ const vennCode = {
         var sourceToTotalLinkCount = new Map([]);
 
         for (const link of this.links) {
-
-
             var sourceShortened = link.source.replace('www.','').replace('.com','').replace('.org','')
 
             if (!targetsToListOfSources.has(link.target)) {
@@ -52,10 +51,8 @@ const vennCode = {
             if (!tempListAsStringToList.has(tempList)) {
                 tempListAsStringToList.set(tempList, value);
                 tempListAsStringToCount.set(tempList, 1);
-                tempStringToListOfTargets.set(tempList, [key]);
             } else {
                 tempListAsStringToCount.set(tempList, tempListAsStringToCount.get(tempList) + 1);
-                tempStringToListOfTargets.get(tempList).push(key);
             }
         });
 
@@ -91,52 +88,8 @@ const vennCode = {
         div.datum(sets).call(chart)
 
         d3.selectAll("#venn_div .venn-circle path")
-            .style("fill-opacity", .9);
+            .style("fill-opacity", .7);
             
-            // add a tooltip
-            var tooltip = d3.select("#visualization").append("div")
-                .attr("class", "venntooltip")
-                .attr("id", "myVennToolTip");
-            
-            div.selectAll("path")
-            .style("stroke-opacity", 0)
-            .style("stroke", "#fff")
-            .style("stroke-width", 3)
-            
-            div.selectAll("g")
-                .on("mouseover", function(d, i) {
-                    // sort all the areas relative to the current item
-                    venn.sortAreas(div, d);
-            
-                    // Display a tooltip with the current size
-                    tooltip.transition().duration(400).style("opacity", .9);
-                    var displayText = "<ul>";
-                    for (li of tempStringToListOfTargets.get(d.keyToSetMap)) {
-                        displayText= displayText + "<li>" + li + "</li>";
-                    }
-                    displayText= displayText + "</ul>";
-                    document.getElementById('myVennToolTip').innerHTML = displayText;
-                    
-
-                    // highlight the current path
-                    var selection = d3.select(this).transition("tooltip").duration(400);
-                    selection.select("path")
-                        .style("fill-opacity", d.sets.length == 1 ? .9 : .1)
-                        .style("stroke-opacity", 1);
-                })
-            
-                .on("mousemove", function() {
-                    tooltip.style("left", (d3.event.pageX - 120) + "px")
-                           .style("top", (d3.event.pageY - 150) + "px");
-                })
-            
-                .on("mouseout", function(d, i) {
-                    tooltip.transition().duration(400).style("opacity", 0);
-                    var selection = d3.select(this).transition("tooltip").duration(400);
-                    selection.select("path")
-                        .style("fill-opacity", d.sets.length == 1 ? .7 : .0)
-                        .style("stroke-opacity", 0);
-                });
     },
 
     draw(nodes, links) {
