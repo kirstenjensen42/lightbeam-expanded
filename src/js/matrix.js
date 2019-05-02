@@ -2,6 +2,8 @@
 const matrix = {
 
     async init(nodes, links) {
+        services.processServices();
+
         this.nodes = nodes;
         this.links = links;
 
@@ -30,7 +32,7 @@ const matrix = {
             targetSources.get(link.target).push('"'+ columnIndexes.get(link.source) +'":"👀"');
         }
 
-        var tableColumns = [{'title':'', 'field': 'name', sorter:"string"}].concat(primarySites).concat([{'title':'Total Links', 'field': 'totalLinks', sorter:"number"}])
+        var tableColumns = [{'title':'', 'field': 'name', sorter:"string"}].concat(primarySites).concat([{'title':'Total Links', 'field': 'totalLinks', sorter:"number"}]).concat({'title':'Identified as', 'field': 'identified', sorter:"string"})
 
         var table = new Tabulator("#matrix", {
             layout:"fitData",
@@ -42,7 +44,22 @@ const matrix = {
 
         var data = [];
         targetSources.forEach(function(value, key) {
-            var text = '{"name":"'+ key + '",' + value + ',"totalLinks":'+value.length+'}';
+            var nameString = key.replace('www.','');
+            var identified = services.getService(nameString);
+            var category = '';
+            if (identified == undefined) {
+                var iDot = nameString.indexOf('.');
+                nameString = nameString.substring(iDot+1,nameString.length);
+                identified = services.getService(nameString);
+            }
+            if (identified != undefined) {
+                category = identified.category;
+                if (category == 'Disconnect'){
+                    category = identified.name;
+                }
+            }
+            console.log(identified);
+            var text = '{"name":"'+ key + '",' + value + ',"totalLinks":'+value.length+',"identified":"'+ category + '"}';
             data.push(JSON.parse(text));
         });
 

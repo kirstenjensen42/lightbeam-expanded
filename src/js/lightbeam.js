@@ -5,12 +5,13 @@ const lightbeam = {
   numThirdParties: 0,
 
   async init() {
-    // this.view = 'matrix';
     this.websites = await storeChild.getAll();
     this.initTPToggle();
     this.renderGraph('matrix');
     this.addListeners();
     this.updateVars();
+
+    // services.processServices();
     
   },
 
@@ -239,11 +240,14 @@ const lightbeam = {
     let links = [];
     for (const website in this.websites) {
       const site = this.websites[website];
+            // console.log(site.hostname + ":" + services.getService(site.hostname));
+      // var moreData = services.getService(site.hostname);
       if (site.thirdParties) {
         const thirdPartyLinks = site.thirdParties.map((thirdParty) => {
           return {
             source: website,
-            target: thirdParty
+            target: thirdParty,
+            // moreData: moreData
           };
         });
         links = links.concat(thirdPartyLinks);
