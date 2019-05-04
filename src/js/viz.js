@@ -1,4 +1,7 @@
 // eslint-disable-next-line no-unused-vars
+/*
+  Builds and controls the graph view
+*/
 const viz = {
   scalingFactor: 2,
   circleRadius: 5,
@@ -14,8 +17,6 @@ const viz = {
   alphaTargetStop: 0,
 
   init(nodes, links) {
-
-
     const { width, height } = this.getDimensions();
     const { canvas, context } = this.createCanvas();
 

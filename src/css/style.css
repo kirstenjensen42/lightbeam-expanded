@@ -330,7 +330,7 @@ aside h2 {
 
 main {
   display: grid;
-  grid-template-rows: 10% 60% 30%;
+  grid-template-rows: 8% 90% 2%;
   background-color: var(--primary-color);
   height: 100%;
 }
@@ -480,7 +480,7 @@ main {
 }
 
 .vis-controls {
-  grid-row-end: span 3;
+  grid-row-end: span 5;
 }
 
 .info-panel-controls {

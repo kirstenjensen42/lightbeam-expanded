@@ -71,40 +71,13 @@
                 </dd>
               </div>
             </dl>
-            <!-- @todo add tracking protection and toggle functionality -->
-            <div class="tracking-protection" id="tracking-protection">
-              <label>Tracking Protection</label>
-              <div class="toggle-switch">
-                <label for="tracking-protection-control">
-                  <input type="checkbox" id="tracking-protection-control">
-                  <span class="toggle"></span>
-                </label>
-              </div>
-            </div>
-            <div class="tracking-protection" id="tracking-protection-disabled" hidden>
-              <label>Tracking Protection</label>
-              <div title="Due to technical issues this doesn't work in current Firefox. Please visit Firefox preferences to enable instead.">
-                Coming back in <a href="https://www.mozilla.org/en-US/firefox/quantum/">Firefox Quantum</a>
-              </div>
-            </div>
             </div>
           </section>
           <section class="vis" id=main_box">
-            <div class="vis-header max-graph">
-              <!-- @todo update filter with current filter state -->
-              <!-- <h1 id="filter">Recent Site</h1> -->
-              <!-- @todo update view with current view state -->
-              <!-- <h2><span id="view">Graph</span> View</h2> -->
-              <!-- @todo display list or graph view, update view based on filter and controls -->
-              <!-- @todo remove the hard-coded width, height values -->
+            <div class="vis-header max-graph"><h1 id = "graphHeader"></h1>
             </div>
             <div class="vis-controls info-panel-controls unimplemented">
-              <!-- @todo check purpose of website icon -->
-              <button class="info-panel website"></button>
-              <!-- @todo add help sidebar -->
-              <button class="info-panel help"></button>
-              <!-- @todo add about sidebar -->
-              <button class="info-panel about"></button>
+
             </div>
             <div class="vis-content" id="visualization">
               <div id="tooltip"></div>

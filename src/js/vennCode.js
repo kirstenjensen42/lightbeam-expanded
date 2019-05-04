@@ -1,4 +1,6 @@
-
+/*
+  Builds and controls the venn diagram view
+*/
 const vennCode = {
 // define sets and set set intersections
 
@@ -58,7 +60,6 @@ const vennCode = {
 
         sets = [];
         tempListAsStringToList.forEach(function(value, key) {
-            console.log(key + ':' + tempListAsStringToCount.get(key));
             var realCount = tempListAsStringToCount.get(key)
             var circleSize = realCount;
             if (value.length == 1) {

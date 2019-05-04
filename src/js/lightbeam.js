@@ -6,12 +6,10 @@ const lightbeam = {
 
   async init() {
     this.websites = await storeChild.getAll();
-    this.initTPToggle();
-    this.renderGraph('matrix');
+    // this.initTPToggle();
+    this.renderGraph('graph');
     this.addListeners();
     this.updateVars();
-
-    // services.processServices();
     
   },
 
@@ -44,6 +42,7 @@ const lightbeam = {
   },
 
   renderGraph(newView) {
+    document.getElementById('graphHeader').innerHTML = newView;
     if (this.view == 'graph') {
       viz.remove();
     } else if (this.view == 'venn') {

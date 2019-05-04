@@ -12,6 +12,12 @@
   this program. If not, see <http://www.gnu.org/licenses/>.
   Authors (one per line):
     Brian Kennish <byoogle@gmail.com>
+  Original source: https://github.com/disconnectme/disconnect
+
+  The services class has been borrowed from the repo as several of its methods were 
+  useful towards using the json referenced below to label third party sites. This 
+  mutated form is likewise published under the terms of GNU General Public License as 
+  stated above also without warranty.
 */
 const services = {
     /*
@@ -26,9 +32,12 @@ getData() {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
-    return xmlHttp.responseText;
+    return xmlHttp.responseText; 
 },
 
+/*
+  Google sites are analysed in a separate file...
+*/
 getGoogle() {
     theUrl = '/ext-libs/shavar-prod-lists/google_mapping.json';
     var xmlHttp = new XMLHttpRequest();
@@ -42,17 +51,9 @@ deserialize(object) {
   return typeof object == 'string' ? JSON.parse(object) : object;
 },
 
-setThingsUp(){
-    processServices(deserialize(getData()), moreServices);
-    processServices(deserialize(getGoogle()), googleServices);
-},
-
-/* Formats the blacklist. */
-processServices() {
-
-  this.data = this.getData();
-  this.data = this.deserialize(this.data || '{}');
-  var categories = this.data.categories;
+/* Provides mapping for labeling */
+processServices(data, services) {
+  var categories = data.categories;
 
   for (var categoryName in categories) {
     if (categoryName.length < 12) {
@@ -69,7 +70,7 @@ processServices() {
             var domains = urls[homepage];
             var domainCount = domains.length;
             for (var j = 0; j < domainCount; j++)
-                this.moreServices[domains[j]] = {
+                  services[domains[j]] = {
                   category: categoryName, name: serviceName, url: homepage
                 };
           }
@@ -77,157 +78,22 @@ processServices() {
       }
     }
   }
+},
 
-//   filteringRules = this.data.filteringRules;
-//   hardeningRules = this.data.hardeningRules;
-//   moreRules = this.data.moreRules;
+/*
+  Retrieves data and builds maps if not done yet
+*/
+setThingsUp(){
+    if (this.initiated == true) {
+        return;
+    }
+    this.initiated = true;
+    this.processServices(this.deserialize(this.getData()), this.moreServices);
+    this.processServices(this.deserialize(this.getGoogle()), this.googleServices);
 },
 
 /* Retrieves the third-party metadata, if any, associated with a domain name. */
 getService(domain) { return this.moreServices[domain]; },
+getGoogleService(domain) { return this.googleServices[domain]; }
 
-
-/* Updates the third-party metadata. */
-// function fetchServices() {
-//   var index = 1;
-//   var requestCount = 1;
-//   var nextRequest = 1;
-
-//   if (Date.now() - preferences.getCharPref('lastUpdateTime') >= dayMilliseconds)
-//       retryTimer.init({observe: function() {
-//         if (index == nextRequest) {
-//           var firstUpdate = !preferences.getCharPref('firstUpdateTime');
-//           var runtime = Date.now();
-//           var updatedThisWeek =
-//               runtime - preferences.getCharPref('firstUpdateThisWeekTime') <
-//                   7 * dayMilliseconds;
-//           var updatedThisMonth =
-//               runtime - preferences.getCharPref('firstUpdateThisMonthTime') <
-//                   30 * dayMilliseconds;
-//           xhr.open(
-//             'GET',
-//             'https://services.disconnect.me/disconnect-plaintext.json?' + [
-//               'build=' + (preferences.getIntPref('firstBuild') || ''),
-//               'first_update=' + firstUpdate,
-//               'updated_this_week=' + updatedThisWeek,
-//               'updated_this_month=' + updatedThisMonth
-//             ].join('&')
-//           );
-
-//           xhr.onload = function() {
-//             if (xhr.status == 200) {
-//               retryTimer.cancel();
-//               processServices(xhr.responseText);
-//               firstUpdate &&
-//                   preferences.setCharPref('firstUpdateTime', runtime);
-//               updatedThisWeek ||
-//                   preferences.setCharPref('firstUpdateThisWeekTime', runtime);
-//               updatedThisMonth ||
-//                   preferences.setCharPref('firstUpdateThisMonthTime', runtime);
-//               preferences.setCharPref('lastUpdateTime', runtime);
-//               preferences.setIntPref(
-//                 'updateCount', preferences.getIntPref('updateCount') + 1
-//               );
-//             }
-//           };
-
-//           nextRequest = index + Math.pow(2, Math.min(requestCount++, 12));
-//           try { xhr.send(); } catch (exception) {}
-//         }
-
-//         index++;
-//       }}, secondMilliseconds, repeatingSlack);
-// }
-
-
-
-/* Retests a URL. */
-// recategorize(domain, url) {
-//   var category;
-//   var rule = filteringRules[domain];
-//   if (rule && RegExp(rule[0]).test(url)) category = rule[1];
-//   return category;
-// },
-
-/* Rewrites a URL, if insecure. */
-// harden(url) {
-//   var rules = [];
-//   if (preferences.getBoolPref('searchHardened'))
-//       rules = rules.concat(moreRules);
-//   if (preferences.getBoolPref('browsingHardened'))
-//       rules = rules.concat(hardeningRules);
-//   var ruleCount = rules.length;
-//   var hardenedUrl = url;
-//   var hardened;
-
-//   for (var i = 0; i < ruleCount; i++) {
-//     var rule = rules[i];
-//     hardenedUrl = url.replace(RegExp(rule[0]), rule[1]);
-
-//     if (hardenedUrl != url) {
-//       hardened = true;
-//       break;
-//     }
-//   }
-
-//   return {url: hardenedUrl, hardened: hardened};
-// },
-
-/* The "setInterval"-replacement class. */
-// var timerClass = Components.classes['@mozilla.org/timer;1'];
-
-/* The "setInterval"-replacement ID. */
-// var timerId = Components.interfaces.nsITimer;
-
-/* The "setInterval" replacement for daily updating. */
-// var dayTimer = timerClass.createInstance(timerId);
-
-/* The "setInterval" replacement for error handling. */
-// var retryTimer = timerClass.createInstance(timerId);
-
-/* The timer type. */
-// var repeatingSlack = timerId.TYPE_REPEATING_SLACK;
-
-/* The "XMLHttpRequest" object. */
-// var xhr =
-    // new Components.Constructor('@mozilla.org/xmlextras/xmlhttprequest;1')();
-
-/* The add-on settings. */
-// var preferences =
-    // Components.
-    //   classes['@mozilla.org/preferences-service;1'].
-    //   getService(Components.interfaces.nsIPrefService).
-    //   getBranch('extensions.disconnect.');
-
-/* The number of milliseconds in a second. */
-// var secondMilliseconds = 1000;
-
-/* The number of milliseconds in an hour. */
-// var hourMilliseconds = 60 * 60 * secondMilliseconds;
-
-/* The number of milliseconds in a day. */
-// var dayMilliseconds = 24 * hourMilliseconds;
-
-
-
-/* The supplementary domain names, regexes, and categories. */
-// var filteringRules = {};
-
-/* The matching regexes and replacement strings. */
-// var hardeningRules = [];
-
-/* The rest of the matching regexes and replacement strings. */
-// var moreRules = [];
-
-// xhr.open('GET', 'chrome://disconnect/skin/data/services.json');
-// xhr.overrideMimeType('application/json');
-
-// xhr.onreadystatechange = function() {
-//   xhr.readyState == 4 && (xhr.status == 0 || xhr.status == 200) &&
-    //   processServices(xhr.responseText);
-// };
-
-// xhr.send();
-// fetchServices();
-// dayTimer.init({observe: fetchServices}, hourMilliseconds, repeatingSlack);
 }
