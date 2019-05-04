@@ -10,6 +10,10 @@ This repository provided json used to label known third party sites into categor
 ### Disconnect
 https://github.com/disconnectme/disconnect
 This repositor provided methods to use the above json to label a site given the domain.
+### Helpful Javascript libraries
+Data-Driven Documents
+Tabulator
+venn.js (https://github.com/benfred/venn.js)
 
 # Lightbeam Extended (A Firefox Browser Extension)
 
@@ -40,4 +44,4 @@ Once you have visited a website data will begin to appear on the view screen bas
 This tool has allowed me to understand more which of the regular sites I visit have particularly high interactions with third parties. The matrix view offering labeling of those third parties has helped me understand more about those interactions. All this has made me realize the value of tools such as Ghostery and Privacy Badger. My intension was to show this tool to others and understand their insights as well, potentially enhancing the design based on feedback. This part of the project has not been completed yet.
 
 # Limitations
-As mentioned above this project would gain much from feedback from other users, and that is a future goal. There also remain some bugs and limitations of the application. For instance the data structures used (or sometimes the way they are used) are not the most efficient and the program can get bogged down when many connections have been made. This bug is inherent in the original program as well. I believe the implementation of persistent data that could be querried and cached as needed could address much of this issue. This is left at present for future work. The code is also in need of some clean up as a number of unused features are present (although I did remove some of these).
+As mentioned above this project would gain much from feedback from other users, and that is a future goal. There also remain some bugs and limitations of the application. For instance the data structures used (or sometimes the way they are used) are not the most efficient and the program can get bogged down when many connections have been made. This bug is inherent in the original program as well. I believe the implementation of persistent data that could be querried and cached as needed could address much of this issue. This is left at present for future work. The code is also in need of some clean up as a number of unused features are present (although I did remove some of these). More particulars can be seen in the issues section of this repository.
