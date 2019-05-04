@@ -11,9 +11,9 @@ This repository provided json used to label known third party sites into categor
 https://github.com/disconnectme/disconnect
 This repositor provided methods to use the above json to label a site given the domain.
 ### Helpful Javascript libraries
-Data-Driven Documents
-Tabulator
-venn.js (https://github.com/benfred/venn.js)
+* Data-Driven Documents
+* Tabulator
+* venn.js (https://github.com/benfred/venn.js)
 Note: I slightly edited the code of some of the above libraries to better suit the needs of this program. The versions included in this repo are not necessarily identical to what would be downloaded from the original source.
 
 # Lightbeam Expanded (A Firefox Browser Extension)
