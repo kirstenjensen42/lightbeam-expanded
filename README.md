@@ -1,46 +1,29 @@
-# Firefox Lightbeam
-This is the web extension version of the Firefox Lightbeam add-on for visualizing HTTP requests between websites in real time.
+# Project Background
+As part of a course on systems of privacy and anonymity I developed this project interacting with the challenge of providing more easily digistable information to ordinary users about certain fairly hidden interactions they are having as they use the internet, namely information about the third party HTTP requests involved as they visit sites. While some of these third party interactions deliver content or services for the primary party many are involved in data collection, gathering data from the user for uses such as advertising or analytics. As these interactions are hidden within the average browsing experience it is important that tools be available for users to visualize them. My intention with this project was to offer a user friendly application that provided a multi-faceted display of realtime data regarding third party connections.
 
-The Firefox Lightbeam extension by Mozilla is a key tool for Mozilla to educate the public about privacy.
+## Acknowledgements
 
-![lightbeam-screenshot](/docs/images/lightbeam.gif)
+
+# Lightbeam Extended (A Firefox Browser Extension)
+
+## About Firefox Lightbeam
+Firefox Lightbeam is a web extension for visualizing first party and third party HTTP requests between websites in real time used to educate the public about privacy. It provided the base code for this project and can be found at https://github.com/mozilla/lightbeam-we.
+The visualization provided in Firefox Lightbeam is a connected graph of first and third party sites that have connected to the user during the browsing experience. First party sites (the sites directly requested) appear as circles and third party sites appear as triangles.
+
+## About Lightbeam Extended
+I have extended the visualization options for Lightbeam by adding two new views.
+- A venn diagram view allows the viewer to notice the overlapping third parties when visiting multiple sites.
+- A matrix view lists primary parties and third parties in a table. As the table is sortable a view can further evaluate the data. In this view known third parties are also labled into various categories, offering further information about the type of third parties that are connected with a visited site.
 
 ## Quick Start
+For ease of downloading this application has been set up with all its dependencies and whatnot
 
-### Clone the repository
-
-**Note** This repository uses a [submodule](https://github.com/mozilla-services/shavar-prod-lists) to allow some third party requests. To ensure the submodule is cloned along with this repository, use a modified `clone` command:
-`git clone --recursive https://github.com/mozilla/lightbeam-we.git`
+### Clone the repository or download the zip file
 
 ### Run the web extension
-
-There are a couple ways to try out this web extension:
-
-1. Open Firefox and load `about:debugging` in the URL bar.
-    - Click the [Load Temporary Add-on](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox) button and select the `manifest.json` file within the directory of this repository.
+Open Firefox and load `about:debugging` in the URL bar.
+    - Click the [Load Temporary Add-on](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox) button and select the `manifest.json` file within the source directory of this repository.
     - You should now see the Lightbeam icon on the top right bar of the browser.
     - Click the Lightbeam icon to launch the web extension.
 
-2. Install the [web-ext](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Getting_started_with_web-ext) tool, change into the directory of this repository, and type `web-ext run`.
-    - This will launch Firefox and install the extension automatically.
-    - This tool gives you some additional development features such as [automatic reloading](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Getting_started_with_web-ext#Automatic_extension_reloading).
 
-## Development Guide
-
-### Download dependencies
-Run `npm run build`.
-
-### Update the submodule
-To manually update the submodule at any time during development, run `git submodule update`.
-
-### Testing
-Run `npm run test` to check that everything is OK.
-
-* If you have installed `eslint` globally, you will have to install globally the following `eslint` plugins too:
-    - `eslint-plugin-json`
-    - `eslint-plugin-mocha`
-* Test suites include lint and unit testing. You can individually run lint or unit tests using the following commands:
-    * `npm run lint:eslint`
-    * `npm run test:karma`
-
-Eslint is used for linting. Karma, Mocha & Chai are used for unit testing. Additionally the test suites are run on the Travis service providing continuous integration support.
