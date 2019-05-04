@@ -35,8 +35,8 @@ For ease of downloading this application has been set up with all its dependenci
 ### Clone the repository or download the zip file
 
 ### Run the web extension
-Open Firefox and load `about:debugging` in the URL bar.
-    - Click the [Load Temporary Add-on](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox) button and select the `manifest.json` file within the source directory of this repository.
+* Open Firefox and load `about:debugging` in the URL bar.
+    - Click the [Load Temporary Add-on](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox) button and select the `manifest.json` file within the directory of this repository.
     - You should now see the Lightbeam icon on the top right bar of the browser.
     - Click the Lightbeam icon to launch the web extension.
     
