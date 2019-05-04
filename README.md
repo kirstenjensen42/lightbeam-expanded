@@ -27,7 +27,7 @@ I have extended the visualization options for Lightbeam by adding two new views.
 - A venn diagram view allows the viewer to notice the overlapping third parties when visiting multiple sites.
 ![screenshot of venn diagram view](https://github.com/kirstenjensen42/lightbeam-expanded/blob/master/docs/images/venn.png "Venn Diagram View")
 - A matrix view lists primary parties and third parties in a table. As the table is sortable a view can further evaluate the data. In this view known third parties are also labled into various categories, offering further information about the type of third parties that are connected with a visited site.
-
+![screenshot of matrix view](https://github.com/kirstenjensen42/lightbeam-expanded/blob/master/docs/images/matrix.png "Matrix View")
 ## Quick Start
 For ease of downloading this application has been set up with all its dependencies and whatnot
 
