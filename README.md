@@ -16,14 +16,14 @@ Tabulator
 venn.js (https://github.com/benfred/venn.js)
 Note: I slightly edited the code of some of the above libraries to better suit the needs of this program. The versions included in this repo are not necessarily identical to what would be downloaded from the original source.
 
-# Lightbeam Extended (A Firefox Browser Extension)
+# Lightbeam Expanded (A Firefox Browser Extension)
 
 ## About Firefox Lightbeam
 Firefox Lightbeam is a web extension for visualizing first party and third party HTTP requests between websites in real time used to educate the public about privacy. It provided the base code for this project and can be found at https://github.com/mozilla/lightbeam-we.
 The visualization provided in Firefox Lightbeam is a connected graph of first and third party sites that have connected to the user during the browsing experience. First party sites (the sites directly requested) appear as circles and third party sites appear as triangles.
 
 ## About Lightbeam Extended
-I have extended the visualization options for Lightbeam by adding two new views.
+I have expanded the visualization options for Lightbeam by adding two new views.
 - A venn diagram view allows the viewer to notice the overlapping third parties when visiting multiple sites.
 ![screenshot of venn diagram view](https://github.com/kirstenjensen42/lightbeam-expanded/blob/master/docs/images/venn.png "Venn Diagram View")
 - A matrix view lists primary parties and third parties in a table. As the table is sortable a view can further evaluate the data. In this view known third parties are also labled into various categories, offering further information about the type of third parties that are connected with a visited site.
