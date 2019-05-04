@@ -14,6 +14,7 @@ This repositor provided methods to use the above json to label a site given the 
 Data-Driven Documents
 Tabulator
 venn.js (https://github.com/benfred/venn.js)
+Note: I slightly edited the code of some of the above libraries to better suit the needs of this program. The versions included in this repo are not necessarily identical to what would be downloaded from the original source.
 
 # Lightbeam Extended (A Firefox Browser Extension)
 
